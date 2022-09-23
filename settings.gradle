@@ -1,0 +1,21 @@
+pluginManagement {
+    plugins {
+        id "io.freefair.lombok" version "${lombokPluginVersion}"
+        id "io.spring.dependency-management" version "${dependencyManagementPluginVersion}"
+        id "org.springframework.boot" version "${springBootPluginVersion}"
+    }
+    repositories {
+        gradlePluginPortal()
+        mavenCentral()
+    }
+}
+dependencyResolutionManagement {
+    repositories {
+        mavenCentral()
+        maven { url 'https://repo.spring.io/milestone' }
+    }
+}
+rootProject.name = 'auth-server'
+
+include 'auth-server'
+

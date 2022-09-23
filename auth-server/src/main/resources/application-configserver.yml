@@ -1,0 +1,17 @@
+spring:
+  config:
+    import: "configserver:"
+
+  cloud:
+    config:
+      enabled: true
+      uri: http://${CONFIG_SERVICE_HOST:config}:${CONFIG_SERVICE_PORT:8080}
+      label: ${CONFIG_SERVICE_BRANCH:master}
+      profile: ${PROFILES_ACTIVE:default}
+      fail-fast: true
+      username: ${CONFIG_SERVICE_USERNAME:user}
+      password: ${CONFIG_SERVICE_PASSWORD:user}
+      retry:
+        max-attempts: 10
+        max-interval: 10000
+        multiplier: 2

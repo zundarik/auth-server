@@ -1,0 +1,36 @@
+spring:
+  application:
+    name: auth-server
+  cloud:
+    config:
+      enabled: false
+
+logging:
+  level:
+    root: INFO
+    org.springframework.web: INFO
+    org.springframework.security: INFO
+    org.springframework.security.oauth2: INFO
+#    org.springframework.boot.autoconfigure: DEBUG
+
+management:
+  info:
+    java:
+      enabled: true
+    git:
+      enabled: true
+      mode: simple
+  endpoint:
+    beans:
+      enabled: true
+  endpoints:
+    web:
+      base-path: /
+      exposure:
+        include: [ prometheus, health, info, beans, env ]
+      path-mapping:
+        prometheus: metrics
+        health: /management/health
+        info: /management/info
+        beans: /management/beans
+        env: /management/env

@@ -1,0 +1,58 @@
+plugins {
+    id 'idea'
+    id 'java'
+    id "io.spring.dependency-management"
+    id "org.springframework.boot"
+    id "io.freefair.lombok"
+}
+
+allprojects {
+    group 'com.zundarik'
+}
+
+subprojects {
+    apply plugin: 'idea'
+    apply plugin: 'java'
+    apply plugin: 'io.spring.dependency-management'
+    apply plugin: 'org.springframework.boot'
+    apply plugin: 'io.freefair.lombok'
+
+    java {
+        toolchain {
+            languageVersion = JavaLanguageVersion.of(17)
+        }
+    }
+
+    dependencyManagement {
+        imports {
+            mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+        }
+    }
+    dependencies {
+        implementation 'org.springframework.boot:spring-boot-starter-actuator'
+        implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+        implementation 'org.springframework.boot:spring-boot-starter-security'
+        implementation 'org.springframework.boot:spring-boot-starter-web'
+        implementation 'org.springframework.cloud:spring-cloud-starter-config'
+
+        runtimeOnly 'com.h2database:h2'
+
+        testImplementation 'com.h2database:h2'
+        testImplementation 'org.springframework.boot:spring-boot-starter-test'
+        testImplementation "org.springframework.security:spring-security-test"
+
+        annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
+    }
+
+    test {
+        useJUnitPlatform()
+    }
+}
+
+springBoot {
+    buildInfo()
+}
+
+jar {
+    enabled = false
+}
